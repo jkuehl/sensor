@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 import smbus2
 import bme280
@@ -20,7 +19,14 @@ print(data.pressure)
 print(data.humidity)
 
 # Prepare SQL query to INSERT a record into the ase.
-connection = mysql.connector.connect( host = "localhost", user = "sensor", password = "sensor", database = "sensor", port = 3306 )
+connection = mysql.connector.connect(
+	host = "localhost",
+	user = "sensor",
+	password = "sensor",
+	database = "sensor",
+	port = 3306 )
+
+print(connection)
 cur = connection.cursor(buffered=True)
 
 cur.execute("SELECT * FROM sensor_data ORDER BY count DESC LIMIT 1")
@@ -28,7 +34,8 @@ rows = cur.fetchall()
 for r in rows:
   print(f" count = {r[0]}") # id = {r[1]} date = {r[2]} temp = {r[3]} pressure = {r[4]} humidity = {r[5]}")
 
-cur.execute("INSERT INTO sensor_data (ID, DATE, TEMP, PRESSURE, HUMIDITY) VALUES (%s, %s, %s, %s, %s)", ('data.id', '', '20.811272679554532', '1017.1958053169708', '54.36379026801714',))
+cur.execute("INSERT INTO sensor_data (ID, DATE, TEMP, PRESSURE, HUMIDITY, LOCATION) VALUES (%s, %s, %s, %s, %s, %s)", ('data.id', '2020-01-01 20:20:20', data.temperature, data.pressure, data.humidity , location))
+
 connection.commit()
 cur.execute("SELECT * FROM sensor_data ORDER BY count DESC LIMIT 1")
 rows = cur.fetchall()
