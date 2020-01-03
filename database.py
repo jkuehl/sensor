@@ -3,7 +3,6 @@ import smbus2
 import bme280
 import mysql.connector
 
-location = 'wohnzimmer'
 port = 1
 address = 0x76
 bus = smbus2.SMBus(port)
@@ -13,7 +12,6 @@ calibration_params = bme280.load_calibration_params(bus, address)
 data = bme280.sample(bus, address, calibration_params)
 
 # the compensated_reading class has the following attributes
-print(data.id)
 print(data.temperature)
 print(data.pressure)
 print(data.humidity)
@@ -34,7 +32,7 @@ rows = cur.fetchall()
 for r in rows:
   print(f" count = {r[0]}") # id = {r[1]} date = {r[2]} temp = {r[3]} pressure = {r[4]} humidity = {r[5]}")
 
-cur.execute("INSERT INTO sensor_data (ID, DATE, TEMP, PRESSURE, HUMIDITY, LOCATION) VALUES (%s, %s, %s, %s, %s, %s)", ('data.id', '2020-01-01 20:20:20', data.temperature, data.pressure, data.humidity , location))
+cur.execute("INSERT INTO sensor_data (ID, DATE, TEMP, PRESSURE, HUMIDITY) VALUES (%s, %s, %s, %s, %s)", ('wohnzimmer', '2020-01-01 20:20:20', data.temperature, data.pressure, data.humidity))
 
 connection.commit()
 cur.execute("SELECT * FROM sensor_data ORDER BY count DESC LIMIT 1")
