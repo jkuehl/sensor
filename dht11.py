@@ -17,7 +17,7 @@ connection = mysql.connector.connect(
 cur = connection.cursor(buffered=True)
 
 # Insert data to database.
-cur.execute("INSERT INTO sensor_data (ID, DATE, TEMP, PRESSURE, HUMIDITY) VALUES (%s, CURRENT_TIMESTAMP, %s, %s, %s)", ('3ddrucker', temperature, '', humidity))
+cur.execute("INSERT INTO sensor_data (LOCATION, DATE, TEMP, PRESSURE, HUMIDITY) VALUES (%s, CURRENT_TIMESTAMP, %s, %s, %s)", ('3ddrucker', temperature, '', humidity))
 
 # Commit changes to database.
 connection.commit()
