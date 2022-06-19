@@ -15,7 +15,7 @@ connection = mysql.connector.connect(
 	user = "sensor",
 	password = "sensor",
 	database = "sensor",
-	port = 3306 )
+	port = 30306 )
 
 # Switch pointer.
 cur = connection.cursor(buffered=True)
